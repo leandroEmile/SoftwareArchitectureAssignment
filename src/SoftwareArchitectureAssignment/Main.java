@@ -1,7 +1,156 @@
 package SoftwareArchitectureAssignment;
+import com.sun.org.apache.bcel.internal.generic.GOTO;
+
 import java.io.*;
 import java.util.*;
 
+
+public class Main {
+    private static Scanner input = new Scanner(System.in);
+    private static ApplicationManager appManager = new ApplicationManager();
+
+    public static void main(String[] args){
+        DisplayMainMenu();
+
+    }
+    private static void DisplayMainMenu(){
+        System.out.println("*** Welcome to The Movie Inventory System ***");
+        System.out.println("1) Movies Menu");
+        System.out.println("2) Show all Movies Availible");
+        System.out.println("3) Shut System Down");
+
+        String choice = input.nextLine();
+        switch(choice) {
+            case "1": {
+                DisplayMovieMenu();
+                break;
+            }
+            case "2": {
+                appManager.DisplayAllInventory();
+                DisplayMainMenu();
+                break;
+            }
+            case "3": {
+                System.out.println("System shutting down...");
+                System.exit(0);
+                break;
+            }
+            default: {
+                System.out.println("Invalid option, try again!");
+                DisplayMainMenu();
+            }
+        }
+
+    }
+    private static void DisplayMovieMenu(){
+        System.out.println("*** Welcome to The Movie Menu***");
+        System.out.println("1) Main Menu");
+        System.out.println("2) Add A New Movie");
+        System.out.println("3) Shut System Down");
+
+        String choice = input.nextLine();
+        switch(choice) {
+            case "1": {
+                DisplayMainMenu();
+                break;
+            }
+            case "2": {
+                Get_User_Input_to_Add_new_Movie();
+                DisplayMovieMenu();
+                break;
+            }
+            case "3": {
+                /*System.out.println("System shutting down...");
+                System.exit(0);
+                break;*/
+            }
+            default: {
+               /* System.out.println("Invalid option, try again!");
+                DisplayMainMenu();*/
+            }
+        }
+    }
+    public static void Get_User_Input_to_Add_new_Movie(){
+        final String RED_BOLD = "\033[1;31m";    // RED
+        final String YELLOW_BOLD = "\033[1;33m";
+        final String WHITE = "\033[0;37m";   // WHITE
+        //String id ="";
+        String Message = "Please type the name of the Producer";
+        String producer = Validate_All_User_Imput(Message,5,false, "");
+        Message = "Please type the name if the Movie";
+        String nameMovie = Validate_All_User_Imput(Message,5,false, "");
+        Message = "Please Type a number if \n" +
+                "Action = 1\n" +
+                "Adventure = 2 \n" +
+                "Comedy = 3\n" +
+                "Drama = 4\n" +
+                "Fantasy = 5\n" +
+                "Mystery = 6 \n" +
+                "Romance = 7\n" +
+                "Thriller = 8\n" +
+                "Western = 9" ;
+        String genres =  Validate_All_User_Imput(Message,1,true ,"int");
+        Message = "Please type in minutes the Length of the movie:";
+        String movieLength = Validate_All_User_Imput(Message,3,true ,"int");
+        Message = "Please type as a double the price of the ticket:";
+        String moviePrice = Validate_All_User_Imput(Message,5,true ,"double");
+        Message = "Please type as a int  the Quantity ticket avaliable:";
+        String quantity = Validate_All_User_Imput(Message,3,true ,"int");
+
+        Movies addMe = new Movies(producer,nameMovie, genres, Integer.parseInt(movieLength), Double.parseDouble(moviePrice),Integer.parseInt(quantity));
+        if(appManager.ADDLine(addMe)){
+            System.out.println(YELLOW_BOLD+"your new movie has been added"+WHITE);
+            appManager.LoadVariablesArrayList();
+        }
+
+    }
+    public static String Validate_All_User_Imput(String wordMessage ,int MinimumSize , boolean isAnumber , String Type){
+        String in = "";
+
+        if(!isAnumber) {
+            do {
+                System.out.println(wordMessage);
+                in = input.nextLine();
+                in = in.trim();
+               // System.out.println(in);
+                if (in.equals("") || in.equals("null") || in.length() < MinimumSize) {
+                    System.out.println("you must type a valid value please try again");
+                    in = "";
+                    //input.next();
+                } else {
+                    return in;
+                }
+            } while (true);
+        }else{
+            do {
+                System.out.println(wordMessage);
+                in = input.nextLine();
+                in = in.trim();
+                try{
+                    if(Type.equals("int")){
+                        Integer.parseInt(in);
+                    }else if (Type.equals("double")){
+                      Double.parseDouble(in);
+                    }
+                }catch (NumberFormatException e){
+                    System.out.println("you must type a valid "+Type+" number");
+                }
+                if (in.equals("") || in.equals("null") || in.length() > MinimumSize) {
+                    System.out.println("you must type a valid "+ Type +"  number");
+                    in = "";
+
+                } else {
+                    return in;
+                }
+            } while (true);
+        }
+    }
+
+}
+
+
+
+/*
 class Values implements Comparable<Values>{
     public String a, b,c;
 
@@ -19,12 +168,16 @@ public class Main {
 
     }
     public static void main(String[] args) throws IOException {
-       /* File oo = new File("Movies.txt");
-        oo.createNewFile();*/
-       /* new Main().CreatArrayListOBJ();
+       */
+/* File oo = new File("Movies.txt");
+        oo.createNewFile();*//*
+
+       */
+/* new Main().CreatArrayListOBJ();
         new Main().DeleteAndBUild();
         new Main().ADDLine();
-        new Main().CreatArrayListOBJ();*/
+        new Main().CreatArrayListOBJ();*//*
+
     }
     public static void deletefile() throws IOException {
     File file = new File("C:\\Users\\LEANDRO\\IdeaProjects\\SoftwareArchitectureAssignment\\Toys.txt");
@@ -133,3 +286,4 @@ public class Main {
             }
     }
 }
+*/

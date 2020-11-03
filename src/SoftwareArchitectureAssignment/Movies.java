@@ -59,6 +59,7 @@ public class Movies implements Comparable<Movies>{
     }
     public Movies(String id,String producer, String nameMovie, String genres, int movieLength, double price, int quantity) {
         this.id = id;
+        genresid = genres;
         this.producer = producer;
         this.nameMovie = nameMovie;
         this.movieLength = movieLength;

@@ -128,7 +128,7 @@ public class ApplicationManager {
             e.printStackTrace();
         }
     }
-    public boolean ValidateIfIdExists(String id){
+    public static boolean ValidateIfIdExists(String id){
         for (Movies m:moviesListArray) {
             if(m.getId().equals(id)){
                 DeleteAndBuildNew(id);
@@ -137,7 +137,7 @@ public class ApplicationManager {
         }
         return  false;
     }
-    public static void ADDLine(Movies m) {
+    public static boolean ADDLine(Movies m) {
         try {
             File file = new File("Movies.txt");
             FileWriter fileWriter = new FileWriter(file, true);
@@ -148,21 +148,11 @@ public class ApplicationManager {
             fileWriter.close();
             fileWriterPrint.flush();
             fileWriterPrint.close();
-
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
-    }
-    public static void main(String[] ars){
-        LoadVariablesArrayList();// this must go first to give a drive for the id
-        //SortTheTextFileArrayListByID();
-        //System.out.println(moviesListArray.get(0).getID());
-        //String id,String producer, String nameMovie, String genres, int movieLength, double price, int quantity
-      //  Movies m = new Movies("Marvel Studios", "Spider-Man: Homecoming", "5",80,7.40,12);
-      //  ADDLine(m);
-       // LoadVariablesArrayList();
-        //DeleteAndBuildNew("1004");
-        DisplayAllInventory();
     }
     public static void DisplayAllInventory(){
         final String BLACK_BOLD = "\033[1;30m";  // BLACK
@@ -173,18 +163,87 @@ public class ApplicationManager {
         final String PURPLE_BOLD = "\033[1;35m"; // PURPLE
         final String CYAN_BOLD = "\033[1;36m";   // CYAN
         final String WHITE_BOLD = "\033[1;37m";  // WHIT
-        System.out.println( RED_BOLD +"   HERE IS ALL YOUR INVENTORY SO FAR " + WHITE_BOLD );
+        final String WHITE = "\033[0;37m";   // WHITE
+        System.out.println( RED_BOLD +"   HERE IS ALL YOUR INVENTORY SO FAR ");
 
         for (Movies m : moviesListArray) {
-            System.out.println("ID:"+m.getId()+" PRODUCER:"+m.getProducer()+" MOVIE NAME:"+m.getNameMovie()+" GENRE:"
-                    +m.getGenres()+" LENGTH:"+m.getMovieLength()+" PRICE:$"+m.getPrice()+" TICKETS LEFT:"+m.getQuantity());
+            System.out.print(PURPLE_BOLD +"ID:" + BLUE_BOLD  +m.getId() );
+            System.out.print(PURPLE_BOLD +" PRODUCER:"+ BLUE_BOLD + m.getProducer());
+            System.out.print(PURPLE_BOLD +" MOVIE NAME:"+ BLUE_BOLD + m.getNameMovie());
+            System.out.print(PURPLE_BOLD +" GENRE:" + BLUE_BOLD +m.getGenres());
+            System.out.print(PURPLE_BOLD +" LENGTH:"+ BLUE_BOLD+ m.getMovieLength());
+            System.out.print(PURPLE_BOLD +" PRICE:$"+ BLUE_BOLD+m.getPrice());
+            System.out.print(PURPLE_BOLD +" TICKETS LEFT:" + BLUE_BOLD + m.getQuantity());
+            System.out.println(WHITE);
+
         }
 
 
     }
+    public static boolean SearchForItemByNameOrId(String item){
+        boolean b = false;
+        final String BLUE_BOLD = "\033[1;34m";   // BLUE
+        final String PURPLE_BOLD = "\033[1;35m"; // PURPLE
+        final String WHITE = "\033[0;37m";   // WHITE
+        for (Movies m: moviesListArray) {
+            if(item.equals(m.getNameMovie())){
+                b=true;
+            }else if(item.equals(m.getId())){
+                b=true;
+            }
+            if(b){
+                System.out.print(PURPLE_BOLD +"ID:" + BLUE_BOLD  +m.getId() );
+                System.out.print(PURPLE_BOLD +" PRODUCER:"+ BLUE_BOLD + m.getProducer());
+                System.out.print(PURPLE_BOLD +" MOVIE NAME:"+ BLUE_BOLD + m.getNameMovie());
+                System.out.print(PURPLE_BOLD +" GENRE:" + BLUE_BOLD +m.getGenres());
+                System.out.print(PURPLE_BOLD +" LENGTH:"+ BLUE_BOLD+ m.getMovieLength());
+                System.out.print(PURPLE_BOLD +" PRICE:$"+ BLUE_BOLD+m.getPrice());
+                System.out.print(PURPLE_BOLD +" TICKETS LEFT:" + BLUE_BOLD + m.getQuantity());
+                System.out.println(WHITE);
+                return b;
+            }
+        }
+        return b;
+    }
+    public static boolean SearchForItemByGenre(String genre){
+        boolean b = false;
+        final String BLUE_BOLD = "\033[1;34m";   // BLUE
+        final String PURPLE_BOLD = "\033[1;35m"; // PURPLE
+        final String WHITE = "\033[0;37m";   // WHITE
+        for (Movies m: moviesListArray) {
+            if(genre.equals(m.getGenresid())) {
+                b = true;
+                System.out.print(PURPLE_BOLD + "ID:" + BLUE_BOLD + m.getId());
+                System.out.print(PURPLE_BOLD + " PRODUCER:" + BLUE_BOLD + m.getProducer());
+                System.out.print(PURPLE_BOLD + " MOVIE NAME:" + BLUE_BOLD + m.getNameMovie());
+                System.out.print(PURPLE_BOLD + " GENRE:" + BLUE_BOLD + m.getGenres());
+                System.out.print(PURPLE_BOLD + " LENGTH:" + BLUE_BOLD + m.getMovieLength());
+                System.out.print(PURPLE_BOLD + " PRICE:$" + BLUE_BOLD + m.getPrice());
+                System.out.print(PURPLE_BOLD + " TICKETS LEFT:" + BLUE_BOLD + m.getQuantity());
+                System.out.println(WHITE);
+            }
+        }
+
+        return b;
+    }
 
 }
 
+
+/*   public static void main(String[] ars){
+        LoadVariablesArrayList();// this must go first to give a drive for the id
+        //SortTheTextFileArrayListByID();
+        //System.out.println(moviesListArray.get(0).getID());
+        //String id,String producer, String nameMovie, String genres, int movieLength, double price, int quantity
+        //  Movies m = new Movies("Marvel Studios", "Spider-Man: Homecoming", "5",80,7.40,12);
+        //  ADDLine(m);
+        // LoadVariablesArrayList();
+        //DeleteAndBuildNew("1004");
+        //SearchForItemByNameOrId("Captain Marvel");
+        //DisplayAllInventory();
+        SearchForItemByGenre("2");
+
+    }*
 
   /* String numeroString ="1001";
         int myInt =  Integer.parseInt(numeroString);
