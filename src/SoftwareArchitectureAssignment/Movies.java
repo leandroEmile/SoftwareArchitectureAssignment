@@ -5,17 +5,11 @@ public class Movies implements Comparable<Movies>{
     private final String producer;
     private final String nameMovie;
     private  Genres genres;
-    private  String genresid;
+    private final String genresid;
     private final int movieLength;
     private final double price;
     private int quantity;
-
     private String id;
-
-    public static void setID(int ID) {
-        Movies.ID = ID;
-    }
-
     private static int ID;
 
     public Movies(String producer, String nameMovie, String genres, int movieLength, double price, int quantity) {
@@ -95,35 +89,16 @@ public class Movies implements Comparable<Movies>{
                 break;
         }
     }
-    public String getProducer() {
-        return producer;
-    }
-    public String getNameMovie() {
-        return nameMovie;
-    }
-    public Genres getGenres() {
-        return genres;
-    }
-    public int getMovieLength() {
-        return movieLength;
-    }
-    public double getPrice() {
-        return price;
-    }
-    public int getQuantity() {
-        return quantity;
-    }
-    public String getId() {
-        return id;
-    }
-    public static int getID(){
-        return ID;
-    }
-    public String getGenresid() {
-        return genresid;
-    }
-
-
+    public static void setID(int ID) {Movies.ID = ID; }
+    public String getProducer(){ return producer; }
+    public String getNameMovie(){ return nameMovie;}
+    public Genres getGenres() { return genres; }
+    public int getMovieLength() { return movieLength; }
+    public double getPrice() { return price; }
+    public int getQuantity() { return quantity; }
+    public String getId() { return id; }
+    public static int getID(){ return ID; }
+    public String getGenresid() { return genresid;}
 
     @Override
     public int compareTo(Movies o) {

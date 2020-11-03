@@ -14,7 +14,9 @@ public class Main {
 
     }
     private static void DisplayMainMenu(){
-        System.out.println("*** Welcome to The Movie Inventory System ***");
+        final String WHITE = "\033[0;37m";   // WHITE
+        final String BLUE_BOLD = "\033[1;34m";   // BLUE
+        System.out.println( BLUE_BOLD +"*** Welcome to The Movie Inventory System ***"+WHITE);
         System.out.println("1) Movies Menu");
         System.out.println("2) Show all Movies Availible");
         System.out.println("3) Shut System Down");
@@ -43,10 +45,12 @@ public class Main {
 
     }
     private static void DisplayMovieMenu(){
-        System.out.println("*** Welcome to The Movie Menu***");
+        final String GREEN_BOLD = "\033[1;32m";  // GREEN
+        final String WHITE = "\033[0;37m";   // WHITE
+        System.out.println(GREEN_BOLD+"*** Welcome to The Movie Menu***" + WHITE);
         System.out.println("1) Main Menu");
         System.out.println("2) Add A New Movie");
-        System.out.println("3) Shut System Down");
+        System.out.println("3) Delete a Item in the List");
 
         String choice = input.nextLine();
         switch(choice) {
@@ -60,6 +64,7 @@ public class Main {
                 break;
             }
             case "3": {
+                Delete_The_Item();
                 /*System.out.println("System shutting down...");
                 System.exit(0);
                 break;*/
@@ -145,7 +150,48 @@ public class Main {
             } while (true);
         }
     }
+    public static void Delete_The_Item(){
+        String userInput;
+        System.out.println("Please to delete a field type the Name of the Movie or ID but first pick a option bellow");
+        System.out.println("1) Back to the Movies Menu");
+        System.out.println("2) To delete by ID or Name");
+        System.out.println("3) To Display all Movies");
+        System.out.println("4) to EXIT the program");
 
+        userInput = input.nextLine();
+        userInput = userInput.trim();
+        switch (userInput){
+            case "1":
+                System.out.println("Back to the Movies Menu");
+                DisplayMovieMenu();
+                break;
+            case "2":
+                System.out.println("please type the ID or Movie Name Now");
+                userInput = input.nextLine();
+                userInput = userInput.trim();
+                if(appManager.ValidateIfIdExists(userInput)){
+                    System.out.println("Well done you deleted the file successfull");
+                    appManager.LoadVariablesArrayList();
+                }else{
+                    System.out.println("ID or Movie Name not found or IOExeption please try again");
+                    Delete_The_Item();
+                }
+                Delete_The_Item();
+                break;
+            case "3":
+                appManager.DisplayAllInventory();
+                Delete_The_Item();
+                break;
+            case "4":
+                System.out.println("System shutting down...");
+                System.exit(0);
+                break;
+            default:
+                System.out.println("Please delete from the options bellow");
+                Delete_The_Item();
+        }
+        //input.nextLine(); ValidateIfIdExists();
+    }
 }
 
 

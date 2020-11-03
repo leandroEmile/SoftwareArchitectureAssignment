@@ -14,6 +14,7 @@ public class ApplicationManager {
         }
     }
     //It load all the values from the txt Movies files to the arrayList moviesListArray
+    //it use the second constructor with existent ID
     public static void LoadVariablesArrayList(){
         try {
             moviesListArray.clear();
@@ -85,7 +86,7 @@ public class ApplicationManager {
         fis.close();
         file.delete();
     }
-    public static void DeleteAndBuildNew( String deleteThis)  {
+    public static boolean DeleteAndBuildNew( String deleteThis)  {
         try {
             File file = new File("Movies.txt");
             File tempFile = new File("TempFile.txt");
@@ -97,7 +98,7 @@ public class ApplicationManager {
 
             while (scanner.hasNext()) {
                 String saveFromFile = scanner.nextLine();
-                System.out.println(saveFromFile);
+               // System.out.println(saveFromFile);
                 int get1 = saveFromFile.indexOf("#");
                 int get2 = saveFromFile.indexOf("#", get1 + 1);
                 int get3 = saveFromFile.indexOf("#", get2 + 1);
@@ -113,9 +114,9 @@ public class ApplicationManager {
                 String moviePrice = saveFromFile.substring(get5 + 1, get6);
                 String quantity = saveFromFile.substring(get6 + 1);
 
-                if (!id.equals(deleteThis)) {
+                if (!id.equals(deleteThis) || nameMovie.equals(deleteThis)) {
                     fileWriterPrint.println(id+"#"+producer+"#"+nameMovie+"#"
-                            +genres+"#"+movieLength+"#"+moviePrice+"#"+moviePrice+"#"+quantity);
+                            +genres+"#"+movieLength+"#"+moviePrice+"#"+quantity);
                 }
             }
             scanner.close();
@@ -123,16 +124,16 @@ public class ApplicationManager {
             fileWriterPrint.close();
             file.delete();
             tempFile.renameTo(new File("Movies.txt"));
-
+            return true;
         }catch (IOException e){
             e.printStackTrace();
+            return false;
         }
     }
     public static boolean ValidateIfIdExists(String id){
         for (Movies m:moviesListArray) {
-            if(m.getId().equals(id)){
-                DeleteAndBuildNew(id);
-                return true;
+            if(m.getId().equals(id) || m.getNameMovie().equals(id)){
+                return  DeleteAndBuildNew(id);
             }
         }
         return  false;
