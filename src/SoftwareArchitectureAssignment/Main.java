@@ -19,13 +19,12 @@ public class Main {
 
     }
     public static void main(String[] args) throws IOException {
-    /*    File oo = new File("Toys.txt");
-        oo.createNewFile();
-    */
-        new Main().CreatArrayListOBJ();
+       /* File oo = new File("Movies.txt");
+        oo.createNewFile();*/
+       /* new Main().CreatArrayListOBJ();
         new Main().DeleteAndBUild();
         new Main().ADDLine();
-        new Main().CreatArrayListOBJ();
+        new Main().CreatArrayListOBJ();*/
     }
     public static void deletefile() throws IOException {
     File file = new File("C:\\Users\\LEANDRO\\IdeaProjects\\SoftwareArchitectureAssignment\\Toys.txt");
