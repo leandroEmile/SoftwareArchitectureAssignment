@@ -11,6 +11,7 @@ public class Movies implements Comparable<Movies>{
     private int quantity;
     private String id;
     private static int ID;
+    public static boolean typeOfSort = false;
 
     public Movies(String producer, String nameMovie, String genres, int movieLength, double price, int quantity) {
         this.producer = producer;
@@ -102,11 +103,17 @@ public class Movies implements Comparable<Movies>{
 
     @Override
     public int compareTo(Movies o) {
-        int compare = id.compareTo(o.getId());
-        if(compare == 0 ){
-            // iff they are the same the result we can compare the second value
+        if(typeOfSort == false){
+            int compare = id.compareTo(o.getId());
+            return compare;
+        }else{
+            int compare = getGenres().name().compareTo(o.getGenres().name());
+            return compare;
         }
-        return compare;
+       /* if(compare == 0 ){
+            // iff they are the same the result we can compare the second value
+        }*/
+
     }
 
 }

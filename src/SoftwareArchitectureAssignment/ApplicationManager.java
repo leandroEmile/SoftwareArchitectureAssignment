@@ -55,7 +55,7 @@ public class ApplicationManager {
         }
 
     }
-    public static void SortTheTextFileArrayListByID(){
+    public static void SortTheTextFileArrayListByIDorGenres(){
         try {
             DeleteFile();
 
@@ -114,7 +114,7 @@ public class ApplicationManager {
                 String moviePrice = saveFromFile.substring(get5 + 1, get6);
                 String quantity = saveFromFile.substring(get6 + 1);
 
-                if (!id.equals(deleteThis) || nameMovie.equals(deleteThis)) {
+                if (!id.equals(deleteThis) && !nameMovie.equals(deleteThis)) {
                     fileWriterPrint.println(id+"#"+producer+"#"+nameMovie+"#"
                             +genres+"#"+movieLength+"#"+moviePrice+"#"+quantity);
                 }

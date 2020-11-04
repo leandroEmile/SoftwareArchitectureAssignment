@@ -49,33 +49,55 @@ public class Main {
         final String WHITE = "\033[0;37m";   // WHITE
         System.out.println(GREEN_BOLD+"*** Welcome to The Movie Menu***" + WHITE);
         System.out.println("1) Main Menu");
-        System.out.println("2) Add A New Movie");
-        System.out.println("3) Delete a Item in the List");
+        System.out.println("2) Display all Inventory");
+        System.out.println("3) Add A New Movie");
+        System.out.println("4) To Search for Item");
+        System.out.println("5) Sort the text File Data");
+        System.out.println("6) Delete a Item in the List");
+        System.out.println("7) Shut Down System");
 
         String choice = input.nextLine();
         switch(choice) {
-            case "1": {
+            case "1":
                 DisplayMainMenu();
                 break;
-            }
-            case "2": {
+            case "2":
+                ApplicationManager.DisplayAllInventory();
+                DisplayMovieMenu();
+                break;
+            case "3":
                 Get_User_Input_to_Add_new_Movie();
                 DisplayMovieMenu();
                 break;
-            }
-            case "3": {
-                Delete_The_Item();
+            case "4":
+                    Call_The_Search_DATA();
+                    DisplayMovieMenu();
+                break;
+            case "5":
+                SortDataInTheTextFile();
+                DisplayMovieMenu();
                 /*System.out.println("System shutting down...");
+                System.exit(0);*/
+                break;
+            case "6":
+                Delete_The_Item();
+                DisplayMovieMenu();
+                break;
+
+            case "7":
+                System.out.println("System shutting down...");
                 System.exit(0);
-                break;*/
-            }
+                break;
+
+
             default: {
                /* System.out.println("Invalid option, try again!");
                 DisplayMainMenu();*/
             }
         }
     }
-    public static void Get_User_Input_to_Add_new_Movie(){
+
+    private static void Get_User_Input_to_Add_new_Movie(){
         final String RED_BOLD = "\033[1;31m";    // RED
         final String YELLOW_BOLD = "\033[1;33m";
         final String WHITE = "\033[0;37m";   // WHITE
@@ -101,7 +123,8 @@ public class Main {
         String moviePrice = Validate_All_User_Imput(Message,5,true ,"double");
         Message = "Please type as a int  the Quantity ticket avaliable:";
         String quantity = Validate_All_User_Imput(Message,3,true ,"int");
-
+        Movies.typeOfSort = false;// it will compare by id so there is no duplicates of the same id I sort it by id
+        ApplicationManager.SortTheTextFileArrayListByIDorGenres();
         Movies addMe = new Movies(producer,nameMovie, genres, Integer.parseInt(movieLength), Double.parseDouble(moviePrice),Integer.parseInt(quantity));
         if(appManager.ADDLine(addMe)){
             System.out.println(YELLOW_BOLD+"your new movie has been added"+WHITE);
@@ -109,7 +132,7 @@ public class Main {
         }
 
     }
-    public static String Validate_All_User_Imput(String wordMessage ,int MinimumSize , boolean isAnumber , String Type){
+    private static String Validate_All_User_Imput(String wordMessage ,int MinimumSize , boolean isAnumber , String Type){
         String in = "";
 
         if(!isAnumber) {
@@ -150,9 +173,11 @@ public class Main {
             } while (true);
         }
     }
-    public static void Delete_The_Item(){
+    private static void Delete_The_Item(){
+        final String RED_BOLD = "\033[1;31m";
+        final String WHITE = "\033[0;37m";
         String userInput;
-        System.out.println("Please to delete a field type the Name of the Movie or ID but first pick a option bellow");
+        System.out.println(RED_BOLD+"Please to delete a field type the Name of the Movie or ID but first pick a option bellow"+WHITE);
         System.out.println("1) Back to the Movies Menu");
         System.out.println("2) To delete by ID or Name");
         System.out.println("3) To Display all Movies");
@@ -166,17 +191,20 @@ public class Main {
                 DisplayMovieMenu();
                 break;
             case "2":
-                System.out.println("please type the ID or Movie Name Now");
-                userInput = input.nextLine();
-                userInput = userInput.trim();
-                if(appManager.ValidateIfIdExists(userInput)){
-                    System.out.println("Well done you deleted the file successfull");
-                    appManager.LoadVariablesArrayList();
+                if(appManager.moviesListArray.size() != 1) {
+                    System.out.println(RED_BOLD+"please type the ID or Movie Name Now"+WHITE);
+                    userInput = input.nextLine();
+                    userInput = userInput.trim();
+                    if (appManager.ValidateIfIdExists(userInput)) {
+                        System.out.println("Well done you deleted the file successfull");
+                        appManager.LoadVariablesArrayList();
+                    } else {
+                        System.out.println(RED_BOLD+"ID or Movie Name not found or IOExeption please try again"+WHITE);
+                        Delete_The_Item();
+                    }
                 }else{
-                    System.out.println("ID or Movie Name not found or IOExeption please try again");
-                    Delete_The_Item();
+                    System.out.println("Sorry your inventory is equal to 1 you must add more movies before you can delete");
                 }
-                Delete_The_Item();
                 break;
             case "3":
                 appManager.DisplayAllInventory();
@@ -191,6 +219,57 @@ public class Main {
                 Delete_The_Item();
         }
         //input.nextLine(); ValidateIfIdExists();
+    }
+    private static void Call_The_Search_DATA() {
+        final String YELLOW_BOLD = "\033[1;33m"; // YELLOW
+        final String WHITE = "\033[0;37m";   // WHITE
+        System.out.println(YELLOW_BOLD+"You can search your Item by Name or ID ");
+        System.out.println("if you want to search By Genre all data to that Genre will be display");
+        String  Message = "Please Type a number if \n" +
+                "Action = 1\n" +
+                "Adventure = 2 \n" +
+                "Comedy = 3\n" +
+                "Drama = 4\n" +
+                "Fantasy = 5\n" +
+                "Mystery = 6 \n" +
+                "Romance = 7\n" +
+                "Thriller = 8\n" +
+                "Western = 9" ;
+        System.out.println(Message);
+        System.out.println(WHITE+"Please type Name or ID or Genre code now");
+        String userInput = input.nextLine();
+        userInput = userInput.trim();
+        if(appManager.SearchForItemByNameOrId(userInput)){
+            System.out.println("Thats whats was found!!");
+        }else if(appManager.SearchForItemByGenre(userInput)){
+            System.out.println("Thats all it was found!!");
+        }else{
+            System.out.println("Sorry nothing found try again!!");
+        }
+    }
+    private static void SortDataInTheTextFile() {
+        final String GREEN_BOLD = "\033[1;32m";
+        final String WHITE = "\033[0;37m";   // WHITE
+        System.out.println(GREEN_BOLD+"you can Sort by ID type = 1 \n or sort by Genre type =2 \n or back to Movies Menu type =3 enter now:" +WHITE);
+        String userInput = input.nextLine();
+        userInput = userInput.trim();
+        switch (userInput){
+            case"1":
+                Movies.typeOfSort = false;// it will compare by id
+                ApplicationManager.SortTheTextFileArrayListByIDorGenres();
+                System.out.println("Sussefull sort by By ID");
+                break;
+            case"2":
+                Movies.typeOfSort = true;// it will compare by id
+                ApplicationManager.SortTheTextFileArrayListByIDorGenres();
+                System.out.println("Sussefull sort by Genre");
+                break;
+            case"3":
+                DisplayMovieMenu();
+                break;
+            default:
+                SortDataInTheTextFile();
+        }
     }
 }
 
