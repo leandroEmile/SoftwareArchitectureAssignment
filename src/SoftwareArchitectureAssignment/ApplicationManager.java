@@ -93,7 +93,6 @@ public class ApplicationManager {
             PrintWriter fileWriterPrint = new PrintWriter(fileWriterBuffer);
             Scanner scanner = new Scanner(file);
 
-
             while (scanner.hasNext()) {
                 String saveFromFile = scanner.nextLine();
                // System.out.println(saveFromFile);
@@ -111,6 +110,7 @@ public class ApplicationManager {
                 String movieLength = saveFromFile.substring(get4 + 1, get5);
                 String moviePrice = saveFromFile.substring(get5 + 1, get6);
                 String quantity = saveFromFile.substring(get6 + 1);
+
 
                 if (!id.equals(deleteThis) && !nameMovie.equals(deleteThis)) {
                     fileWriterPrint.println(id+"#"+producer+"#"+nameMovie+"#"

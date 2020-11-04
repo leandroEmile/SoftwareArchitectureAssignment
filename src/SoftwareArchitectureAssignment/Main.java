@@ -120,6 +120,7 @@ public class Main {
         String quantity = Validate_All_User_Imput(Message,3,true ,"int");
         Movies.typeOfSort = false;// it will compare by id so there is no duplicates of the same id I sort it by id
         ApplicationManager.SortTheTextFileArrayListByIDorGenres();
+
         Movies addMe = new Movies(producer,nameMovie, genres, Integer.parseInt(movieLength), Double.parseDouble(moviePrice),Integer.parseInt(quantity));
         if(appManager.ADDLine(addMe)){
             System.out.println(YELLOW_BOLD+"your new movie has been added"+WHITE);
