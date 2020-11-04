@@ -7,8 +7,10 @@ import java.util.Scanner;
 
 public class ApplicationManager {
     public static  List<Movies> moviesListArray = new ArrayList<>();
+    //public static String currentDirectory = System.getProperty("user.dir");
 
     public ApplicationManager(){
+
         if(moviesListArray.isEmpty()) {
             LoadVariablesArrayList();
         }
@@ -56,8 +58,11 @@ public class ApplicationManager {
     public static void SortTheTextFileArrayListByIDorGenres(){
         try {
             DeleteFile();
+            File file0 = new File("Movies.txt");
 
+            file0.delete();
             File tempFile = new File("TempFile.txt");
+
             tempFile.createNewFile();
             FileWriter fileWriter = new FileWriter(tempFile, true);
             BufferedWriter fileWriterBuffer = new BufferedWriter(fileWriter);
@@ -76,7 +81,8 @@ public class ApplicationManager {
         }
     }
     public static void DeleteFile() throws IOException {
-        File file = new File("C:\\Users\\LEANDRO\\IdeaProjects\\SoftwareArchitectureAssignment\\Movies.txt");
+        File file = new File("Movies.txt");
+        // "C:\\Users\\LEANDRO\\IdeaProjects\\SoftwareArchitectureAssignment\\
         FileWriter fileWriter = new FileWriter(file);
         FileInputStream fis = new FileInputStream(file);
         fileWriter.flush();
