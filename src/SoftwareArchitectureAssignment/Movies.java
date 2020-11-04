@@ -5,11 +5,11 @@ public class Movies implements Comparable<Movies>{
     private final String producer;
     private final String nameMovie;
     private  Genres genres;
-    private final String genresid;
+    private final String genresId;
     private final int movieLength;
     private final double price;
-    private int quantity;
-    private String id;
+    private final int quantity;
+    private final String id;
     private static int ID;
     public static boolean typeOfSort = false;
 
@@ -19,7 +19,7 @@ public class Movies implements Comparable<Movies>{
         this.movieLength = movieLength;
         this.price = price;
         this.quantity = quantity;
-        genresid = genres;
+        genresId = genres;
         switch (genres){
             case "1":
                 this.genres = Genres.Action;
@@ -54,7 +54,7 @@ public class Movies implements Comparable<Movies>{
     }
     public Movies(String id,String producer, String nameMovie, String genres, int movieLength, double price, int quantity) {
         this.id = id;
-        genresid = genres;
+        genresId = genres;
         this.producer = producer;
         this.nameMovie = nameMovie;
         this.movieLength = movieLength;
@@ -98,22 +98,19 @@ public class Movies implements Comparable<Movies>{
     public double getPrice() { return price; }
     public int getQuantity() { return quantity; }
     public String getId() { return id; }
-    public static int getID(){ return ID; }
-    public String getGenresid() { return genresid;}
+    public String getGenresId() { return genresId;}
 
     @Override
     public int compareTo(Movies o) {
-        if(typeOfSort == false){
-            int compare = id.compareTo(o.getId());
-            return compare;
+
+        if(!typeOfSort){
+            return id.compareTo(o.getId());
         }else{
-            int compare = getGenres().name().compareTo(o.getGenres().name());
-            return compare;
+            return getGenres().name().compareTo(o.getGenres().name());
         }
        /* if(compare == 0 ){
             // iff they are the same the result we can compare the second value
         }*/
-
     }
 
 }

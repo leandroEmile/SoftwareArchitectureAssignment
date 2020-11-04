@@ -20,7 +20,6 @@ public class ApplicationManager {
             moviesListArray.clear();
             File file = new File("Movies.txt");
             Scanner scanner = new Scanner(file);
-            int i = 0;
             while (scanner.hasNext()) {
                 String saveFromFile = scanner.nextLine();
                // System.out.println(saveFromFile);
@@ -39,15 +38,14 @@ public class ApplicationManager {
                 String moviePrice = saveFromFile.substring(get5 + 1, get6);
                 String quantity = saveFromFile.substring(get6 + 1);
                 moviesListArray.add(new Movies(id,producer,nameMovie,genres, Integer.parseInt(movieLength),Double.parseDouble(moviePrice),Integer.parseInt(quantity)));
-           //     System.out.println(id+" "+producer+" "+nameMovie+" "+ genres+" "+movieLength+" "+ moviePrice+" "+quantity);
-                i++;
+
             }
             //this bellow code block gets the last id in the list and save in the
             //static Variable ID if the constructor is called with out the id
             //it will be added by the static value + 1
             int lastIndex = moviesListArray.size()-1;
             String idValue = moviesListArray.get(lastIndex).getId();
-            moviesListArray.get(0).setID(    Integer.parseInt(idValue)   );
+            Movies.setID(    Integer.parseInt(idValue)   );
             scanner.close();
         }catch (IOException e){
             e.printStackTrace();
@@ -68,7 +66,7 @@ public class ApplicationManager {
             Collections.sort(moviesListArray);
             for (Movies m : moviesListArray) {
                 fileWriterPrint.println(m.getId()+"#"+m.getProducer()+"#"+m.getNameMovie()+"#"
-                        +m.getGenresid()+"#"+m.getMovieLength()+"#"+m.getPrice()+"#"+m.getQuantity());
+                        +m.getGenresId()+"#"+m.getMovieLength()+"#"+m.getPrice()+"#"+m.getQuantity());
             }
             fileWriterPrint.flush();
             fileWriterPrint.close();
@@ -144,7 +142,7 @@ public class ApplicationManager {
             FileWriter fileWriter = new FileWriter(file, true);
             PrintWriter fileWriterPrint = new PrintWriter(fileWriter);
             fileWriterPrint.println(m.getId() + "#" + m.getProducer() + "#" + m.getNameMovie() + "#"
-                    + m.getGenresid() + "#" + m.getMovieLength() + "#" + m.getPrice() + "#" + m.getQuantity());
+                    + m.getGenresId() + "#" + m.getMovieLength() + "#" + m.getPrice() + "#" + m.getQuantity());
             fileWriter.flush();
             fileWriter.close();
             fileWriterPrint.flush();
@@ -212,7 +210,7 @@ public class ApplicationManager {
         final String PURPLE_BOLD = "\033[1;35m"; // PURPLE
         final String WHITE = "\033[0;37m";   // WHITE
         for (Movies m: moviesListArray) {
-            if(genre.equals(m.getGenresid())) {
+            if(genre.equals(m.getGenresId())) {
                 b = true;
                 System.out.print(PURPLE_BOLD + "ID:" + BLUE_BOLD + m.getId());
                 System.out.print(PURPLE_BOLD + " PRODUCER:" + BLUE_BOLD + m.getProducer());
@@ -230,22 +228,3 @@ public class ApplicationManager {
 
 }
 
-
-/*   public static void main(String[] ars){
-        LoadVariablesArrayList();// this must go first to give a drive for the id
-        //SortTheTextFileArrayListByID();
-        //System.out.println(moviesListArray.get(0).getID());
-        //String id,String producer, String nameMovie, String genres, int movieLength, double price, int quantity
-        //  Movies m = new Movies("Marvel Studios", "Spider-Man: Homecoming", "5",80,7.40,12);
-        //  ADDLine(m);
-        // LoadVariablesArrayList();
-        //DeleteAndBuildNew("1004");
-        //SearchForItemByNameOrId("Captain Marvel");
-        //DisplayAllInventory();
-        SearchForItemByGenre("2");
-
-    }*
-
-  /* String numeroString ="1001";
-        int myInt =  Integer.parseInt(numeroString);
-        System.out.println(myInt);*/
