@@ -1,6 +1,4 @@
 package SoftwareArchitectureAssignment;
-import com.sun.org.apache.bcel.internal.generic.GOTO;
-import java.io.*;
 import java.util.*;
 
 public class Main {
@@ -98,9 +96,9 @@ public class Main {
         final String WHITE = "\033[0;37m";   // WHITE
         //String id ="";
         String Message = "Please type the name of the Producer";
-        String producer = Validate_All_User_Imput(Message,5,false, "");
+        String producer = Validate_All_User_Input(Message,5,false, "");
         Message = "Please type the name if the Movie";
-        String nameMovie = Validate_All_User_Imput(Message,5,false, "");
+        String nameMovie = Validate_All_User_Input(Message,5,false, "");
         Message = "Please Type a number if \n" +
                 "Action = 1\n" +
                 "Adventure = 2 \n" +
@@ -111,13 +109,13 @@ public class Main {
                 "Romance = 7\n" +
                 "Thriller = 8\n" +
                 "Western = 9" ;
-        String genres =  Validate_All_User_Imput(Message,1,true ,"int");
+        String genres =  Validate_All_User_Input(Message,1,true ,"int");
         Message = "Please type in minutes the Length of the movie:";
-        String movieLength = Validate_All_User_Imput(Message,3,true ,"int");
+        String movieLength = Validate_All_User_Input(Message,3,true ,"int");
         Message = "Please type as a double the price of the ticket:";
-        String moviePrice = Validate_All_User_Imput(Message,5,true ,"double");
+        String moviePrice = Validate_All_User_Input(Message,5,true ,"double");
         Message = "Please type as a int  the Quantity ticket avaliable:";
-        String quantity = Validate_All_User_Imput(Message,3,true ,"int");
+        String quantity = Validate_All_User_Input(Message,3,true ,"int");
         Movies.typeOfSort = false;// it will compare by id so there is no duplicates of the same id I sort it by id
         ApplicationManager.SortTheTextFileArrayListByIDorGenres();
 
@@ -128,10 +126,10 @@ public class Main {
         }
 
     }
-    private static String Validate_All_User_Imput(String wordMessage ,int MinimumSize , boolean isAnumber , String Type){
+    private static String Validate_All_User_Input(String wordMessage , int MinimumSize , boolean isNumber , String Type){
         String in;
 
-        if(!isAnumber) {
+        if(!isNumber) {
             do {
                 System.out.println(wordMessage);
                 in = input.nextLine();
@@ -270,3 +268,4 @@ public class Main {
 
 
 
+             
